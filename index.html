@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DabbleTube</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <h1>DabbleTube</h1>
+      </header>
+
+      <main class="stage">
+        <section class="tv-wrap" aria-label="DabbleTube playlist player">
+          <div class="tv">
+            <div class="tv-top"></div>
+            <div class="screen-bezel">
+              <div class="screen-glare"></div>
+              <div class="screen-note" id="screen-note" hidden>
+                <p>Preview mode detected.</p>
+                <p>
+                  If the YouTube player errors here, open the playlist directly or run this
+                  page from a local server.
+                </p>
+                <a
+                  href="https://www.youtube.com/playlist?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Watch on YouTube</a
+                >
+              </div>
+              <iframe
+                class="screen"
+                src="https://www.youtube-nocookie.com/embed/M7lc1UVf-VE?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ&rel=0&modestbranding=1"
+                title="DabbleTube playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="tv-controls" aria-hidden="true">
+              <div class="speaker-grid"></div>
+              <div class="knobs">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+          <div class="tv-legs" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </div>
+          <p class="playlist-caption">
+            Updates hourly with the latest Dabbleverse clipper content.
+            <a
+              href="https://www.youtube.com/playlist?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ"
+              target="_blank"
+              rel="noreferrer"
+              >Open playlist on YouTube   </a
+            >
+          </p>
+        </section>
+      </main>
+    </div>
+    <script>
+      if (window.location.protocol === "file:") {
+        document.body.classList.add("local-preview");
+        document.getElementById("screen-note")?.removeAttribute("hidden");
+      }
+    </script>
+  </body>
+</html>
