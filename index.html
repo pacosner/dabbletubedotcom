@@ -15,7 +15,18 @@
   <body>
     <div class="page-shell">
       <header class="hero">
-        <h1>DabbleTube</h1>
+        <h1 class="hero-mark" aria-label="DabbleTube">
+          <span class="hero-mark__type">
+            <span class="hero-mark__dabble">Dabble</span>
+            <span class="hero-mark__tube-badge" aria-hidden="true">
+              <span class="hero-mark__tube">Tube</span>
+              <span class="hero-mark__comedy">
+                <span class="hero-mark__mic"></span>
+                <span class="hero-mark__spotlight"></span>
+              </span>
+            </span>
+          </span>
+        </h1>
       </header>
 
       <main class="stage">
@@ -39,15 +50,24 @@
               </div>
               <iframe
                 class="screen"
-                src="https://www.youtube-nocookie.com/embed/M7lc1UVf-VE?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ&rel=0&modestbranding=1"
+                id="playlist-player"
+                src="https://www.youtube-nocookie.com/embed/videoseries?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ&rel=0&modestbranding=1&enablejsapi=1"
                 title="DabbleTube playlist"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
               ></iframe>
             </div>
-            <div class="tv-controls" aria-hidden="true">
+            <div class="tv-controls">
               <div class="speaker-grid"></div>
+              <div class="tv-buttons" aria-label="Playlist controls">
+                <button class="tv-button tv-button--chevron" id="prev-video" type="button" aria-label="Previous video">
+                  <span aria-hidden="true">‹</span>
+                </button>
+                <button class="tv-button tv-button--chevron" id="next-video" type="button" aria-label="Next video">
+                  <span aria-hidden="true">›</span>
+                </button>
+              </div>
               <div class="knobs">
                 <span></span>
                 <span></span>
@@ -65,17 +85,35 @@
               href="https://www.youtube.com/playlist?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ"
               target="_blank"
               rel="noreferrer"
-              >Open playlist on YouTube   </a
+              >Open playlist on YouTube</a
             >
           </p>
         </section>
       </main>
     </div>
     <script>
+      const player = document.getElementById("playlist-player");
+      const prevButton = document.getElementById("prev-video");
+      const nextButton = document.getElementById("next-video");
+
+      function sendPlayerCommand(command) {
+        player.contentWindow?.postMessage(
+          JSON.stringify({
+            event: "command",
+            func: command,
+            args: [],
+          }),
+          "*"
+        );
+      }
+
       if (window.location.protocol === "file:") {
         document.body.classList.add("local-preview");
         document.getElementById("screen-note")?.removeAttribute("hidden");
       }
+
+      prevButton?.addEventListener("click", () => sendPlayerCommand("previousVideo"));
+      nextButton?.addEventListener("click", () => sendPlayerCommand("nextVideo"));
     </script>
   </body>
 </html>
