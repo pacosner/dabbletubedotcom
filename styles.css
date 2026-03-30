@@ -87,7 +87,7 @@ body::after {
   flex-wrap: wrap;
   justify-content: center;
   font-family: "Abril Fatface", serif;
-  font-size: clamp(3.75rem, 8vw, 6.5rem);
+  font-size: clamp(3rem, 6.4vw, 5.1rem);
   line-height: 0.95;
   text-shadow: 0.04em 0.04em 0 #ffd98d;
 }
@@ -400,7 +400,7 @@ body.local-preview .screen-note {
 
 .playlist-caption {
   width: min(100%, 980px);
-  margin: 0.9rem auto 0;
+  margin: 0 auto 1rem;
   text-align: center;
   font-size: 1rem;
   line-height: 1.6;
