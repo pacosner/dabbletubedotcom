@@ -24,6 +24,15 @@
 
       <main class="stage">
         <section class="tv-wrap" aria-label="DabbleTube playlist player">
+          <p class="playlist-caption">
+            Updates hourly with the latest Dabbleverse clipper content.
+            <a
+              href="https://www.youtube.com/playlist?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ"
+              target="_blank"
+              rel="noreferrer"
+              >Open playlist on YouTube</a
+            >
+          </p>
           <div class="tv">
             <div class="tv-top"></div>
             <div class="screen-bezel">
@@ -43,15 +52,24 @@
               </div>
               <iframe
                 class="screen"
-                src="https://www.youtube-nocookie.com/embed/M7lc1UVf-VE?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ&rel=0&modestbranding=1"
+                id="playlist-player"
+                src="https://www.youtube-nocookie.com/embed/videoseries?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ&rel=0&modestbranding=1&enablejsapi=1"
                 title="DabbleTube playlist"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
               ></iframe>
             </div>
-            <div class="tv-controls" aria-hidden="true">
+            <div class="tv-controls">
               <div class="speaker-grid"></div>
+              <div class="tv-buttons" aria-label="Playlist controls">
+                <button class="tv-button tv-button--chevron" id="prev-video" type="button" aria-label="Previous video">
+                  <span aria-hidden="true">‹</span>
+                </button>
+                <button class="tv-button tv-button--chevron" id="next-video" type="button" aria-label="Next video">
+                  <span aria-hidden="true">›</span>
+                </button>
+              </div>
               <div class="knobs">
                 <span></span>
                 <span></span>
@@ -63,23 +81,32 @@
             <span></span>
             <span></span>
           </div>
-          <p class="playlist-caption">
-            Updates hourly with the latest Dabbleverse clipper content.
-            <a
-              href="https://www.youtube.com/playlist?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ"
-              target="_blank"
-              rel="noreferrer"
-              >Open playlist on YouTube   </a
-            >
-          </p>
         </section>
       </main>
     </div>
     <script>
+      const player = document.getElementById("playlist-player");
+      const prevButton = document.getElementById("prev-video");
+      const nextButton = document.getElementById("next-video");
+
+      function sendPlayerCommand(command) {
+        player.contentWindow?.postMessage(
+          JSON.stringify({
+            event: "command",
+            func: command,
+            args: [],
+          }),
+          "*"
+        );
+      }
+
       if (window.location.protocol === "file:") {
         document.body.classList.add("local-preview");
         document.getElementById("screen-note")?.removeAttribute("hidden");
       }
+
+      prevButton?.addEventListener("click", () => sendPlayerCommand("previousVideo"));
+      nextButton?.addEventListener("click", () => sendPlayerCommand("nextVideo"));
     </script>
   </body>
 </html>
