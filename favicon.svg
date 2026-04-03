@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">DabbleTube favicon</title>
+  <desc id="desc">A retro television set with a laughing emoji on the screen.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1cf"/>
+      <stop offset="0.55" stop-color="#efc97f"/>
+      <stop offset="1" stop-color="#de5f2a"/>
+    </linearGradient>
+    <linearGradient id="tv" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8b5235"/>
+      <stop offset="0.6" stop-color="#6e3b23"/>
+      <stop offset="1" stop-color="#432113"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd85f"/>
+      <stop offset="0.65" stop-color="#ffb321"/>
+      <stop offset="1" stop-color="#e27f12"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <circle cx="50" cy="14" r="2.5" fill="#fff8ee" opacity="0.85"/>
+  <circle cx="15" cy="16" r="1.8" fill="#fff8ee" opacity="0.72"/>
+
+  <path d="M25 11 32 18 39 11" fill="none" stroke="#432113" stroke-width="3.2" stroke-linecap="round"/>
+  <rect x="16" y="18" width="32" height="26" rx="7" fill="url(#tv)"/>
+  <rect x="20" y="22" width="24" height="18" rx="5" fill="#2c160d"/>
+  <circle cx="32" cy="31" r="8.2" fill="url(#screen)"/>
+  <path d="M27.5 29.5q1.6-1.8 3.2 0" fill="none" stroke="#432113" stroke-width="1.9" stroke-linecap="round"/>
+  <path d="M33.3 29.5q1.6-1.8 3.2 0" fill="none" stroke="#432113" stroke-width="1.9" stroke-linecap="round"/>
+  <path d="M27.2 33.1q4.8 4.4 9.6 0v1.4q-4.8 5.1-9.6 0z" fill="#432113"/>
+  <path d="M28.2 33.9q3.8 2.6 7.6 0" fill="none" stroke="#fff1cf" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+  <path d="M24.8 32.7q-1.8 2.8-.1 4.9" fill="none" stroke="#5bb7ff" stroke-width="1.9" stroke-linecap="round"/>
+  <path d="M39.2 32.7q1.8 2.8.1 4.9" fill="none" stroke="#5bb7ff" stroke-width="1.9" stroke-linecap="round"/>
+  <circle cx="25.5" cy="47.5" r="2.4" fill="#432113"/>
+  <circle cx="38.5" cy="47.5" r="2.4" fill="#432113"/>
+  <path d="M25 44.5 21.5 55" stroke="#432113" stroke-width="3" stroke-linecap="round"/>
+  <path d="M39 44.5 42.5 55" stroke="#432113" stroke-width="3" stroke-linecap="round"/>
+</svg>
