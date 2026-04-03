@@ -99,6 +99,11 @@ aws s3 cp "${DIST_DIR}/styles.css" "s3://${BUCKET_NAME}/styles.css" \
   --cache-control "public,max-age=31536000,immutable" \
   --content-type "text/css"
 
+aws s3 cp "${DIST_DIR}/favicon.svg" "s3://${BUCKET_NAME}/favicon.svg" \
+  --metadata-directive REPLACE \
+  --cache-control "public,max-age=31536000,immutable" \
+  --content-type "image/svg+xml"
+
 echo "Creating CloudFront invalidation..."
 aws cloudfront create-invalidation \
   --distribution-id "${DISTRIBUTION_ID}" \
