@@ -26,6 +26,8 @@ chmod +x scripts/deploy-site.sh
 ./scripts/deploy-site.sh example.com Z123456789ABCDEFG
 ```
 
+The deploy script now builds a minified `dist/` directory first and publishes that output to S3.
+
 Arguments:
 
 - `example.com`: your domain name
@@ -41,6 +43,18 @@ Optional environment variables:
 
 Re-run the same deploy command. It will:
 
+- build a fresh minified `dist/` output
 - update the CloudFormation stack if needed
-- sync the current site files to S3
+- sync the built site files to S3
 - invalidate the CloudFront cache
+
+### Build locally
+
+Run:
+
+```bash
+chmod +x scripts/build-site.sh
+./scripts/build-site.sh
+```
+
+This writes deployable files to `dist/`.

@@ -16,6 +16,10 @@ CREATE_WWW_RECORD="${CREATE_WWW_RECORD:-true}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 TEMPLATE_PATH="${REPO_ROOT}/infra/site-stack.yaml"
+DIST_DIR="${REPO_ROOT}/dist"
+
+echo "Building site assets..."
+bash "${SCRIPT_DIR}/build-site.sh"
 
 get_stack_status() {
   aws cloudformation describe-stacks \
@@ -79,22 +83,18 @@ DISTRIBUTION_DOMAIN="$(aws cloudformation describe-stacks \
   --query "Stacks[0].Outputs[?OutputKey=='DistributionDomainName'].OutputValue" \
   --output text)"
 
-echo "Uploading site files to s3://${BUCKET_NAME}..."
-aws s3 sync "${REPO_ROOT}" "s3://${BUCKET_NAME}" \
+echo "Uploading built site files to s3://${BUCKET_NAME}..."
+aws s3 sync "${DIST_DIR}" "s3://${BUCKET_NAME}" \
   --delete \
-  --exclude ".git/*" \
-  --exclude ".gitignore" \
-  --exclude "infra/*" \
-  --exclude "scripts/*" \
   --exclude "README.md"
 
 echo "Setting cache headers..."
-aws s3 cp "${REPO_ROOT}/index.html" "s3://${BUCKET_NAME}/index.html" \
+aws s3 cp "${DIST_DIR}/index.html" "s3://${BUCKET_NAME}/index.html" \
   --metadata-directive REPLACE \
   --cache-control "public,max-age=60,s-maxage=60" \
   --content-type "text/html"
 
-aws s3 cp "${REPO_ROOT}/styles.css" "s3://${BUCKET_NAME}/styles.css" \
+aws s3 cp "${DIST_DIR}/styles.css" "s3://${BUCKET_NAME}/styles.css" \
   --metadata-directive REPLACE \
   --cache-control "public,max-age=31536000,immutable" \
   --content-type "text/css"
