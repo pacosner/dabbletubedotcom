@@ -91,18 +91,22 @@ aws s3 sync "${DIST_DIR}" "s3://${BUCKET_NAME}" \
 echo "Setting cache headers..."
 aws s3 cp "${DIST_DIR}/index.html" "s3://${BUCKET_NAME}/index.html" \
   --metadata-directive REPLACE \
-  --cache-control "public,max-age=60,s-maxage=60" \
+  --cache-control "no-store,max-age=0,must-revalidate" \
   --content-type "text/html"
 
-aws s3 cp "${DIST_DIR}/styles.css" "s3://${BUCKET_NAME}/styles.css" \
-  --metadata-directive REPLACE \
-  --cache-control "public,max-age=31536000,immutable" \
-  --content-type "text/css"
+while IFS= read -r css_file; do
+  aws s3 cp "${css_file}" "s3://${BUCKET_NAME}/$(basename "${css_file}")" \
+    --metadata-directive REPLACE \
+    --cache-control "public,max-age=31536000,immutable" \
+    --content-type "text/css"
+done < <(find "${DIST_DIR}" -maxdepth 1 -type f -name 'styles.*.css' | sort)
 
-aws s3 cp "${DIST_DIR}/favicon.svg" "s3://${BUCKET_NAME}/favicon.svg" \
-  --metadata-directive REPLACE \
-  --cache-control "public,max-age=31536000,immutable" \
-  --content-type "image/svg+xml"
+while IFS= read -r svg_file; do
+  aws s3 cp "${svg_file}" "s3://${BUCKET_NAME}/$(basename "${svg_file}")" \
+    --metadata-directive REPLACE \
+    --cache-control "public,max-age=31536000,immutable" \
+    --content-type "image/svg+xml"
+done < <(find "${DIST_DIR}" -maxdepth 1 -type f -name 'favicon.*.svg' | sort)
 
 echo "Creating CloudFront invalidation..."
 aws cloudfront create-invalidation \
