@@ -202,12 +202,12 @@ body::after {
 }
 
 .stage {
-  margin-top: 0.2rem;
+  margin-top: 0.14rem;
 }
 
 .tv-wrap {
   position: relative;
-  padding: 1rem 0.35rem 5.5rem;
+  padding: 0.7rem 0.35rem 5.5rem;
 }
 
 .tv {
@@ -216,8 +216,8 @@ body::after {
   grid-template-columns: minmax(0, 1fr) 150px;
   gap: 1.25rem;
   align-items: stretch;
-  width: 100%;
-  margin: 0;
+  width: 85%;
+  margin: 0 auto;
   padding: 1.75rem;
   border-radius: 2.8rem;
   background:
@@ -465,6 +465,19 @@ body.local-preview .screen-note {
   font-weight: 800;
 }
 
+.contact-caption {
+  width: min(100%, 980px);
+  margin: 0 auto 1.1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.contact-caption a {
+  color: var(--accent-strong);
+  font-weight: 800;
+}
+
 @media (max-width: 960px) {
   .playlist-caption {
     grid-template-columns: 1fr;
@@ -477,7 +490,7 @@ body.local-preview .screen-note {
   }
 
   .tv {
-    width: min(98vw, 1100px);
+    width: min(83.3vw, 935px);
     grid-template-columns: minmax(0, 1fr) 120px;
   }
 
@@ -494,7 +507,11 @@ body.local-preview .screen-note {
   }
 
   .hero-brand {
-    gap: 0.6875rem;
+    gap: 0.55rem;
+  }
+
+  .hero-logo {
+    width: 3.75rem;
   }
 
   .tv {
