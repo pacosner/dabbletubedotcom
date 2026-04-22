@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Manrope:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Manrope:wght@400;500;700;800&display=optional"
       rel="stylesheet"
     />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -60,7 +60,7 @@
               <iframe
                 class="screen"
                 id="playlist-player"
-                src="https://www.youtube-nocookie.com/embed/videoseries?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ&rel=0&modestbranding=1&enablejsapi=1"
+                data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLieDuyulq1X7z4ch-V_oGGoVkuZJy8nSQ&rel=0&modestbranding=1&enablejsapi=1"
                 title="DabbleTube playlist"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
@@ -102,28 +102,35 @@
       </main>
     </div>
     <script>
-      const player = document.getElementById("playlist-player");
-      const prevButton = document.getElementById("prev-video");
-      const nextButton = document.getElementById("next-video");
+      document.addEventListener('DOMContentLoaded', () => {
+        const player = document.getElementById("playlist-player");
+        const prevButton = document.getElementById("prev-video");
+        const nextButton = document.getElementById("next-video");
 
-      function sendPlayerCommand(command) {
-        player.contentWindow?.postMessage(
-          JSON.stringify({
-            event: "command",
-            func: command,
-            args: [],
-          }),
-          "*"
-        );
-      }
+        // Load the iframe src after DOM is ready
+        if (player && player.dataset.src) {
+          player.src = player.dataset.src;
+        }
 
-      if (window.location.protocol === "file:") {
-        document.body.classList.add("local-preview");
-        document.getElementById("screen-note")?.removeAttribute("hidden");
-      }
+        function sendPlayerCommand(command) {
+          player.contentWindow?.postMessage(
+            JSON.stringify({
+              event: "command",
+              func: command,
+              args: [],
+            }),
+            "*"
+          );
+        }
 
-      prevButton?.addEventListener("click", () => sendPlayerCommand("previousVideo"));
-      nextButton?.addEventListener("click", () => sendPlayerCommand("nextVideo"));
+        if (window.location.protocol === "file:") {
+          document.body.classList.add("local-preview");
+          document.getElementById("screen-note")?.removeAttribute("hidden");
+        }
+
+        prevButton?.addEventListener("click", () => sendPlayerCommand("previousVideo"));
+        nextButton?.addEventListener("click", () => sendPlayerCommand("nextVideo"));
+      });
     </script>
   </body>
 </html>
